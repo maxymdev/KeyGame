@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Press a Key! </title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="lib/paper-full.js"></script>
+	<script type="text/javascript" src="lib/howler.js"></script>
+
+	<script type="text/paperscript" canvas="myCanvas">
+		
+
+		var keyData = {
+			q: {
+				color: "red",
+				sound: new Howl({
+					src: ['sounds/01.mp3']
+				})
+			},
+			w: {
+				color: "blue",
+				sound: new Howl({
+					src: ['sounds/02.mp3']
+				})
+			},
+			e: {
+				color: "brown",
+				sound: new Howl({
+					src: ['sounds/03.mp3']
+				})
+			},
+			r: {
+				color: "chocolate",
+				sound: new Howl({
+					src: ['sounds/04.mp3']
+				})
+			},
+			t: {
+				color: "cornflowerblue",
+				sound: new Howl({
+					src: ['sounds/05.mp3']
+				})
+			},
+			y: {
+				color: "cyan",
+				sound: new Howl({
+					src: ['sounds/06.mp3']
+				})
+			},
+			u: {
+				color: "darkgreen",
+				sound: new Howl({
+					src: ['sounds/07.mp3']
+				})
+			},
+			i: {
+				color: "darkorange",
+				sound: new Howl({
+					src: ['sounds/08.mp3']
+				})
+			},
+			o: {
+				color: "darkred",
+				sound: new Howl({
+					src: ['sounds/09.mp3']
+				})
+			},
+			p: {
+				color: "darkslateblue",
+				sound: new Howl({
+					src: ['sounds/10.mp3']
+				})
+			},
+			a: {
+				color: "gold",
+				sound: new Howl({
+					src: ['sounds/11.mp3']
+				})
+			},
+			s: {
+				color: "greenyellow",
+				sound: new Howl({
+					src: ['sounds/12.mp3']
+				})
+			},
+			d: {
+				color: "hotpink",
+				sound: new Howl({
+					src: ['sounds/13.mp3']
+				})
+			},
+			f: {
+				color: "orangered",
+				sound: new Howl({
+					src: ['sounds/14.mp3']
+				})
+			},
+			g: {
+				color: "seagreen",
+				sound: new Howl({
+					src: ['sounds/15.mp3']
+				})
+			},
+			h: {
+				color: "turquoise",
+				sound: new Howl({
+					src: ['sounds/16.mp3']
+				})
+			},
+			j: {
+				color: "yellow",
+				sound: new Howl({
+					src: ['sounds/17.mp3']
+				})
+			},
+			k: {
+				color: "green",
+				sound: new Howl({
+					src: ['sounds/18.mp3']
+				})
+			},
+			l: {
+				color: "violet",
+				sound: new Howl({
+					src: ['sounds/19.mp3']
+				})
+			},
+			z: {
+				color: "tomato",
+				sound: new Howl({
+					src: ['sounds/20.mp3']
+				})
+			},
+			x: {
+				color: "teal",
+				sound: new Howl({
+					src: ['sounds/21.mp3']
+				})
+			},
+			c: {
+				color: "peru",
+				sound: new Howl({
+					src: ['sounds/22.mp3']
+				})
+			},
+			v: {
+				color: "orchid",
+				sound: new Howl({
+					src: ['sounds/23.mp3']
+				})
+			},
+			b: {
+				color: "orange",
+				sound: new Howl({
+					src: ['sounds/24.mp3']
+				})
+			},
+			n: {
+				color: "lime",
+				sound: new Howl({
+					src: ['sounds/25.mp3']
+				})
+			},
+			m: {
+				color: "lightskyblue",
+				sound: new Howl({
+					src: ['sounds/26.mp3']
+				})
+			}
+
+		};
+
+
+		var circles = []; 
+		//add an array for every new key
+
+		function onKeyDown(event) {
+			//sound.play();
+			if (keyData[event.key]){
+				var maxPoint = new Point(view.size.width, view.size.height);
+				var randomPoint = Point.random();
+				var point = maxPoint * randomPoint; 
+				// random x, y
+
+				var newCircle = new Path.Circle(point, 200);
+				newCircle.fillColor = keyData[event.key].color;
+
+				circles.push(newCircle); 
+				// push new circle into array for animation
+
+				keyData[event.key].sound.play();
+			}
+
+		}
+
+
+
+		function onFrame(event){
+			for (var i = 0; i < circles.length; i++){
+			circles[i].fillColor.hue +=1;  //color animation
+			circles[i].scale(.94); //size animation
+			if(circles[i].area < 1){
+		    	circles[i].remove(); //remove very small circless from memory
+		      	circles.splice(i, 1); //splice the arr
+		      	console.log(circles); //you can see cleaning 
+   				}
+			}
+		}
+		
+		
+   </script>
+</head>
+<body>
+<!-- http://paperjs.org/tutorials/getting-started/working-with-paper-js/ used as tutorial-->
+<canvas id="myCanvas" resize></canvas> 
+</body>
+</html>
